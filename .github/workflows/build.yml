@@ -1,0 +1,58 @@
+name: Compilar APK
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el proyecto
+        uses: actions/checkout@v4
+
+      - name: Instalar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Preparar el SDK de Android
+        uses: android-actions/setup-android@v3
+
+      - name: Comprobar las traducciones (strings.xml)
+        id: check
+        continue-on-error: true
+        run: |
+          python3 tools/check_strings.py --markdown | tee informe.md
+          cat informe.md >> "$GITHUB_STEP_SUMMARY"
+          python3 tools/check_strings.py > /dev/null
+
+      - name: Compilar la app (APK de depuración)
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Revisión automática de Android (lint)
+        continue-on-error: true
+        run: ./gradlew lintDebug
+
+      - name: Publicar el APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TripNote-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publicar el informe de lint
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-lint
+          path: app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
+
+      - name: Avisar si el comprobador encontró errores
+        if: steps.check.outcome == 'failure'
+        run: |
+          echo "::warning::El comprobador de traducciones ha encontrado errores. Mira el resumen de esta ejecución."
