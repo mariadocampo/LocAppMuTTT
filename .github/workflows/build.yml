@@ -18,9 +18,6 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Preparar el SDK de Android
-        uses: android-actions/setup-android@v3
-
       - name: Comprobar las traducciones (strings.xml)
         id: check
         continue-on-error: true
