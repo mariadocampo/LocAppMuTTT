@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name. Brand: do not translate. -->
+    <string name="app_name" translatable="false">TripNote</string>
+    <string name="support_email" translatable="false">help@tripnote.example</string>
+
+    <!-- ===================== Home screen ===================== -->
+    <!-- Greeting at the top of the Home screen. %1$s = user's first name. -->
+    <string name="home_greeting">Hello, %1$s!</string>
+    <string name="home_subtitle">Ready for your next adventure?</string>
+    <string name="home_plan">Plan a trip</string>
+    <string name="home_import">Import booking</string>
+    <string name="home_count_prefix">You have</string>
+    <string name="home_count_suffix">trips planned</string>
+    <!-- Tip below the buttons. "Plan a trip" refers to the button above. -->
+    <string name="home_tip">Tip: tap <b>Plan a trip</b> to start a new itinerary.</string>
+    <string name="home_your_trips">Your trips</string>
+    <string name="home_empty">No trips yet.</string>
+    <string name="coming_soon">Coming soon</string>
+
+    <!-- Trip type, shown on each trip card. -->
+    <string name="trip_type_city">City</string>
+    <string name="trip_type_beach">Beach</string>
+    <string name="trip_type_mountain">Mountain</string>
+    <string name="trip_word">trip</string>
+
+    <!-- Countdown on each trip card. %d = number of days. -->
+    <plurals name="days_left">
+        <item quantity="one">%d day left</item>
+        <item quantity="other">%d days left</item>
+    </plurals>
+
+    <!-- ===================== Trip screen ===================== -->
+    <string name="trip_dates_label">Dates:</string>
+    <string name="trip_budget_label">Budget:</string>
+    <!-- %1$s = name of a person, %2$s = destination city. -->
+    <string name="trip_added_by">%1$s added %2$s to this trip</string>
+    <string name="trip_reminder">Don\'t forget your passport!</string>
+    <string name="trip_baggage">Check the airline\'s baggage rules before you pack.</string>
+    <string name="trip_food">Food &amp; drinks</string>
+    <string name="trip_where_to_stay">Where to stay</string>
+    <string name="trip_book">Book</string>
+    <string name="trip_booked">Request sent to the hotel.</string>
+    <string name="trip_what_to_see">What to see</string>
+    <string name="status_open">Open</string>
+    <string name="trip_delete">Delete trip</string>
+    <string name="trip_empty">Select a trip on the Home tab.</string>
+
+    <!-- Confirmation dialog -->
+    <string name="dialog_delete_title">Delete trip?</string>
+    <!-- %1$s = destination city -->
+    <string name="dialog_delete_message">This will remove %1$s and all its notes.</string>
+    <string name="dialog_delete_confirm">Delete</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <!-- ===================== Settings screen ===================== -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_backup">Back up photos over mobile data</string>
+    <string name="settings_units">Distance units</string>
+    <string-array name="units">
+        <item>Kilometres</item>
+        <item>Miles</item>
+    </string-array>
+    <string name="settings_language_note">TripNote follows your device language.</string>
+    <string name="settings_save">Save</string>
+    <!-- %1$s = version number, for example 1.0 -->
+    <string name="settings_version">Version %1$s</string>
+
+    <!-- ===================== Bottom tabs ===================== -->
+    <!-- Bottom tab label. Max. 10 characters. -->
+    <string name="tab_home">Home</string>
+    <!-- Bottom tab label. Max. 10 characters. -->
+    <string name="tab_trip">Trip</string>
+    <!-- Bottom tab label. Max. 10 characters. -->
+    <string name="tab_settings">Settings</string>
+</resources>
