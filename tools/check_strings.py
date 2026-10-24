@@ -102,6 +102,7 @@ def check_text(where, src_text, tgt_text, errors, warnings, comment=""):
 
 def check_file(src, path):
     errors, warnings = [], []
+    missing = []
     try:
         tgt = parse(path)
     except ET.ParseError as exc:
@@ -123,7 +124,7 @@ def check_file(src, path):
                                 f"original. Bórrala de la traducción.")
             continue
         if name not in tgt.strings:
-            warnings.append(f"<string name=\"{name}\">: falta. La app mostrará el texto en inglés.")
+            missing.append(name)
             continue
         t = tgt.strings[name]
         where = f"<string name=\"{name}\">"
@@ -139,7 +140,7 @@ def check_file(src, path):
 
     for name, forms in src.plurals.items():
         if name not in tgt.plurals:
-            warnings.append(f"<plurals name=\"{name}\">: falta. La app mostrará el texto en inglés.")
+            missing.append(name)
             continue
         tforms = tgt.plurals[name]
         if "other" not in tforms:
@@ -155,7 +156,7 @@ def check_file(src, path):
 
     for name, items in src.arrays.items():
         if name not in tgt.arrays:
-            warnings.append(f"<string-array name=\"{name}\">: falta. La app mostrará el texto en inglés.")
+            missing.append(name)
             continue
         if len(items) != len(tgt.arrays[name]):
             errors.append(f"<string-array name=\"{name}\">: el original tiene {len(items)} elementos y la "
@@ -166,7 +167,17 @@ def check_file(src, path):
         if name not in src.arrays:
             errors.append(f"<string-array name=\"{name}\">: esta clave no existe en el original.")
 
+    if missing:
+        warnings.insert(0, f"Faltan {len(missing)} recursos por traducir; la app los mostrará en inglés: "
+                           + ", ".join(missing))
     return errors, warnings
+
+
+def md(text):
+    """Prepara un mensaje para Markdown: las etiquetas y los escapes se muestran como código."""
+    text = re.sub(r"(<[^<>]+>)", r"`\1`", text)
+    text = text.replace("\\'", "`\\'`")
+    return text
 
 
 def find_targets():
@@ -194,7 +205,7 @@ def main(argv):
             status = "❌" if errors else ("⚠️" if warnings else "✅")
             out.append(f"### {status} {label}")
             out.append(f"**{len(errors)} errores · {len(warnings)} avisos**\n")
-            out += [f"- ❌ {e}" for e in errors] + [f"- ⚠️ {w}" for w in warnings]
+            out += [f"- ❌ {md(e)}" for e in errors] + [f"- ⚠️ {md(w)}" for w in warnings]
             out.append("")
         else:
             out.append(f"== {label}: {len(errors)} errores, {len(warnings)} avisos")
