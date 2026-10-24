@@ -37,6 +37,7 @@ Reglas básicas:
 - **En tu móvil Android**: descomprime el zip, abre `app-debug.apk` y permite instalar apps de origen desconocido.
 - **En el emulador de Android Studio**: arrastra el APK a la ventana del emulador.
 - Cambia el idioma del dispositivo (Ajustes > Sistema > Idiomas) para ver tu traducción.
+- **En appetize.io**: puedes crearte una cuenta gratuita en esta página web y subir el archivo apk. En tu repositorio: Actions › la ejecución en verde › Artifacts › TripNote-apk. Descomprime el zip en el ordenador y tendrás app-debug.apk.
 
 ### Pseudolocalización
 
